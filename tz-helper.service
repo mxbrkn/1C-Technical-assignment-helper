@@ -1,0 +1,21 @@
+[Unit]
+Description=TZ Helper - FastAPI Application
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/tz-helper
+ExecStart=/opt/tz-helper/venv/bin/uvicorn app:app --host 127.0.0.1 --port 8000 --workers 2
+Restart=always
+RestartSec=5
+EnvironmentFile=/opt/tz-helper/.env
+
+# Безопасность
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/tz-helper
+
+[Install]
+WantedBy=multi-user.target
